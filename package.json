@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5"
+  },
+  "name": "ideologies-network",
+  "description": "CatusCunt",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CatusKing/Ideologies-Network.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CatusKing/Ideologies-Network/issues"
+  },
+  "homepage": "https://github.com/CatusKing/Ideologies-Network#readme"
+}
