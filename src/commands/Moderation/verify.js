@@ -5,13 +5,13 @@ module.exports = {
         .setName('verify')
         .setDescription('Verify in the staff server.')
         .addStringOption(option => 
-            option.setName('role')
-                .setDescription('Please enter the role you applied for.')
+            option.setName('position')
+                .setDescription('Please enter the position you applied for.')
                 .setRequired(true)
         ),
         async execute(interaction) {
             try {
-                const appliedRole = interaction.options.getString('role');
+                const appliedRole = interaction.options.getString('position');
         
                 const roleReply = await interaction.reply(`<@${interaction.user.id}>, you have requested verification for the role: **${appliedRole}**. Please provide proof of your application by sending an image.`);
         
@@ -44,12 +44,12 @@ module.exports = {
                         image: { url: proofAttachment.url }
                     };
         
-                    await interaction.followUp({ content: 'Verification complete. Here is the information you provided:', embeds: [embed] });
+                    await interaction.followUp({ content: `<@${interaction.user.id}>, your verification pending approval. Here is the information you provided:`, embeds: [embed] });
                 });
         
                 proofCollector.on('end', async (collected, reason) => {
                     if (reason === 'time') {
-                        await interaction.followUp('Verification process timed out. Please try again.');
+                        await interaction.followUp(`<@${interaction.user.id}>, your verification process timed out. Please try again.`);
                     }
                     await roleReply.delete();
                 });
