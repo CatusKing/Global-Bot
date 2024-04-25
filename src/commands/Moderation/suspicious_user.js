@@ -3,8 +3,8 @@ const {SlashCommandBuilder, PermissionsBitField} = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('suspicious_user')
-    .setDescription('Sends a message logging a user as suspicious')
-    .addUserOption(option => option.setName('user').setDescription('The user you would like to log as suspicious(Can be just an id)').setRequired(true))
+    .setDescription('Logs a user as a suspicious server member')
+    .addUserOption(option => option.setName('user').setDescription('The target user you would like to log as suspicious(Can be just an id)').setRequired(true))
     .addStringOption(option => option.setName('reason').setDescription('Reason for logging this user as suspicious').setRequired(true))
     .setDefaultMemberPermissions(PermissionsBitField.Flags.KickMembers),
   

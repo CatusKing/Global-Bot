@@ -3,9 +3,9 @@ const {SlashCommandBuilder, PermissionsBitField} = require('discord.js');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('blacklist')
-    .setDescription('Sends a message logging a user as suspicious')
-    .addUserOption(option => option.setName('user').setDescription('The user you would like to log as blacklisted(Can be just an id)').setRequired(true))
-    .addMentionableOption(option => option.setName('position').setDescription('The highest position the user held').setRequired(true))
+    .setDescription('Logs a user as blacklisted from staff.')
+    .addUserOption(option => option.setName('user').setDescription('The target user you would like to log as blacklisted(Can be just an id)').setRequired(true))
+    .addMentionableOption(option => option.setName('position').setDescription('The highest position the target user held').setRequired(true))
     .addStringOption(option => option.setName('reason').setDescription('Reason for logging this user as blacklisted').setRequired(true))
     .setDefaultMemberPermissions(PermissionsBitField.Flags.KickMembers),
   
