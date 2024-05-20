@@ -13,11 +13,11 @@ module.exports = {
             try {
                 const appliedRole = interaction.options.getString('position');
         
-                const roleReply = await interaction.reply(`<@${interaction.user.id}>, you have requested verification for the role: **${appliedRole}**. Please provide proof of your application by sending an image.`);
+                const roleReply = await interaction.reply(`<@${interaction.user.id}>, you have requested verification for the role: **${appliedRole}**. Please provide proof of your accepted application by sending an image.`);
         
                 const proofCollector = interaction.channel.createMessageCollector({
                     filter: msg => {
-                        if (msg.attachments.size > 0 && msg.attachments.every(attachment => attachment.contentType.startsWith('image'))) {
+                        if (msg.author.id === interaction.user.id && msg.attachments.size > 0 && msg.attachments.every(attachment => attachment.contentType.startsWith('image'))) {
                             return true;
                         } else {
                             msg.delete().catch(console.error); // Delete the message if it's not an image
@@ -37,7 +37,7 @@ module.exports = {
                         title: 'Verification Request',
                         fields: [
                             { name: '__Role Applied For:__', value: appliedRole },
-                            { name: '__User Requesting Verification:__', value: interaction.user.username },
+                            { name: '__User Requesting Verification:__', value: `${interaction.user.username}(${interaction.user.id})` },
                             { name: '__Proof Of Verification:__', value: ' '},
                         ],
                         timestamp: new Date(),
@@ -55,7 +55,7 @@ module.exports = {
                 });
             } catch (error) {
                 console.error('Error handling interaction:', error);
-                await interaction.reply('An error occurred while processing your request. Please try again later.');
+                await interaction.followUp('An error occurred while processing your request. Please try again later.');
             }
         }
     }
