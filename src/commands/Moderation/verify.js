@@ -56,7 +56,7 @@ module.exports = {
                 });
             } catch (error) {
                 console.error('Error handling interaction:', error);
-                await interaction.followUp('An error occurred while processing your request. Please try again later.');
+                await interaction.channel.send({content: 'An error occurred while processing your request.\nPlease contact a developer if this persists.'});
             }
         }
     }

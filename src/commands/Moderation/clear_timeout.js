@@ -21,13 +21,13 @@ module.exports = {
         let reason =  interaction.options.getString('reason') || 'No reason provided';
         try {
             await member.timeout(null, reason);
-    
-            let tempMsg = await interaction.reply({content: `:eyes: oh boy`});
+            
+            await interaction.reply({content: `:eyes: oh boy`, ephemeral: true});
             await interaction.followUp({content: `${user}'s **Timeout** has been **Cleared** by ${interaction.user}`})
-            await tempMsg.delete();
+
         } catch (error) {
             console.error('Error handling interaction:', error);
-            await interaction.reply('An error occurred while processing your request. Please try again later.');
+            await interaction.channel.send({content: 'An error occurred while processing your request.\nPlease contact a developer if this persists.'});
         }
     }
 }
