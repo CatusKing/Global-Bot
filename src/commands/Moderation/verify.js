@@ -1,14 +1,15 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder, PermissionsBitField} = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('verify')
-        .setDescription('Verify in the staff server.')
+        .setDescription('Send a request to verify a staff position.')
         .addStringOption(option => 
             option.setName('position')
                 .setDescription('Please enter the position you applied for.')
                 .setRequired(true)
-        ),
+        )
+        .setDefaultMemberPermissions(PermissionsBitField.Flags.MentionEveryone),
         async execute(interaction) {
             try {
                 const appliedRole = interaction.options.getString('position');
@@ -37,7 +38,7 @@ module.exports = {
                         title: 'Verification Request',
                         fields: [
                             { name: '__Role Applied For:__', value: appliedRole },
-                            { name: '__User Requesting Verification:__', value: `${interaction.user.username}(${interaction.user.id})` },
+                            { name: '__User Requesting Verification:__', value: `${interaction.user}\n${interaction.user.tag}\n${interaction.user.id}` },
                             { name: '__Proof Of Verification:__', value: ' '},
                         ],
                         timestamp: new Date(),

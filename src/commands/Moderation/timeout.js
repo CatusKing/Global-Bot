@@ -4,9 +4,9 @@ const { PermissionsBitField, ActionRowBuilder, ButtonBuilder } = require('discor
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('timeout')
-        .setDescription('Timeout a selected user')
-        .addUserOption(option => option.setName('user').setDescription('Select the user to timeout').setRequired(true))
-        .addStringOption(option => option.setName('duration').setDescription('Duration of the timeout in seconds').setRequired(true).addChoices(
+        .setDescription('Times out a member in the server with a reason and duration.')
+        .addUserOption(option => option.setName('member').setDescription('The member to timeout.').setRequired(true))
+        .addStringOption(option => option.setName('duration').setDescription('Duration of the timeout on the member.').setRequired(true).addChoices(
                     { name: '60 Seconds', value: '60'},
                     { name: '2 Minutes', value: '120'},
                     { name: '5 Minutes', value: '300' },
@@ -26,11 +26,11 @@ module.exports = {
                     { name: '5 Days', value: '432000' },
                     { name: '1 Week', value: '604800' },
                 ))
-        .addStringOption(option => option.setName('reason').setDescription('Reason for timing out the user').setRequired(true))
+        .addStringOption(option => option.setName('reason').setDescription('Reason for timing out the member.').setRequired(true))
         .setDefaultMemberPermissions(PermissionsBitField.Flags.ModerateMembers),
 
     async execute(interaction) {
-        const user = interaction.options.getUser('user');
+        const user = interaction.options.getUser('member');
         const isMember = await interaction.guild.members.fetch(user.id).then(() => true).catch(() => false);
         if (!isMember) return interaction.reply({ content: 'The user is not a member of the server', ephemeral: true});
         const member = await interaction.guild.members.fetch(user.id);
@@ -38,7 +38,6 @@ module.exports = {
         
         
         if (!member.moderatable) return await interaction.reply({ content: 'I can not timeout this member', ephemeral: true});
-        if (member.permissions.has(PermissionsBitField.Flags.Administrator)) return await interaction.reply({ content: 'I can not timeout this admin', ephemeral: true});
 
         let reason =  interaction.options.getString('reason') || 'No reason provided';
         try {
