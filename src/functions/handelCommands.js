@@ -2,7 +2,7 @@ const { REST } = require("@discordjs/rest");
 const { Routes } = require('discord-api-types/v9');
 const fs = require('fs');
 
-const clientId = '763111592861892639';
+const clientId = 'CLIENT ID';
 const guildId = 'YOUR GUILD ID'; 
 
 module.exports = (client) => {
