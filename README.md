@@ -21,8 +21,15 @@ Clears timeout of a selected member within the server.
 
 Kicks a member from the server.
 
-- user - The member you want to kick.
+- member - The member you want to kick.
 - reason - Reason for kicking the selected member.
+
+### /ban
+
+Bans a member from the server.
+
+- member - The member you want to ban.
+- reason - Reason for banning the selected member.
 
 ### /verify
 
