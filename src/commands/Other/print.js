@@ -1,12 +1,11 @@
 const {SlashCommandBuilder, PermissionsBitField} = require('discord.js')
-const { EmbedBuilder } = require('@discordjs/builders');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('print')
     .setDescription('Prints a message into the channel.')
     .addStringOption(option => option.setName('message').setDescription('The message to be printed.').setRequired(true))
-    .setDefaultMemberPermissions(PermissionsBitField.Flags.ManageMessages),
+    .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
   
   
   async execute(interaction, client) {

@@ -23,7 +23,7 @@ module.exports = {
             await member.kick(reason);
             
             await interaction.reply({content: `:eyes: oh boy`, ephemeral: true});
-            await interaction.followUp({content: `${user} has been **Kicked** by ${interaction.user}`})
+            await interaction.followUp({content: `${user} has been **Kicked** by ${interaction.user}`});
         } catch (error) {
             console.error('Error handling interaction:', error);
             await interaction.channel.send({content: 'An error occurred while processing your request.\nPlease contact a developer if this persists.'});
