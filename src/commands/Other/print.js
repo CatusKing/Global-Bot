@@ -10,12 +10,12 @@ module.exports = {
   
   async execute(interaction, client) {
     const message = await interaction.options.getString('message').replaceAll('\\n', '\n');
-    await interaction.reply({content: `Processing...`, ephemeral: true});
     try {
-      await interaction.channel.send({content: message})
+      await interaction.channel.send({content: message});
+      await interaction.reply({content: `Message sent!`, ephemeral: true});
     } catch (error) {
       console.error('Error handling interaction:', error);
-      await interaction.channel.send({content: 'An error occurred while processing your request.\nPlease contact a developer if this persists.'});
+      await interaction.reply({content: 'An error occurred while processing your request.\nPlease contact a developer if this persists.'});
     }
   }
 }
