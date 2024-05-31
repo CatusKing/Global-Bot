@@ -6,7 +6,7 @@
 
 Times out a member in the server with a reason and duration.
 
-- member - The member to timeout.
+- target - The member to timeout.
 - duration - Duration of the timeout on the member.
 - reason - Reason for timing out the member.
 
@@ -14,21 +14,21 @@ Times out a member in the server with a reason and duration.
 
 Clears timeout of a selected member within the server.
 
-- member - The member to clear the timeout.
+- target - The member to clear the timeout.
 - reason - Reason for clearing the timeout on the user.
 
 ### /kick
 
 Kicks a member from the server.
 
-- member - The member you want to kick.
+- target - The member you want to kick.
 - reason - Reason for kicking the selected member.
 
 ### /ban
 
 Bans a member from the server.
 
-- member - The member you want to ban.
+- target - The member you want to ban.
 - reason - Reason for banning the selected member.
 
 ### /verify
@@ -41,14 +41,14 @@ position - The position you applied for.
 
 Logs a user as a suspicious server member.
 
-- user - The target user you would like to log as suspicious. This can be just a user id.
+- target - The target user you would like to log as suspicious. This can be just a user id.
 - reason - The reason for logging the user as suspicious.
 
 ### /blacklist
 
 Logs a user as blacklisted from staff.
 
-- user - The target user you would like to log as blacklisted. This Can be just a user id.
+- target - The target user you would like to log as blacklisted. This Can be just a user id.
 - position - The highest position the target user held.
 - reason - The reason for logging the user as blacklisted.
 
@@ -59,3 +59,9 @@ Logs a user as blacklisted from staff.
 Prints out inputted message.
 
 - message - The message for the bot to send.
+
+### /config
+
+Configures a global setting.
+
+- options - The different configs you can change.

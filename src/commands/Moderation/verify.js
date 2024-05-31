@@ -1,4 +1,5 @@
 const { SlashCommandBuilder, PermissionsBitField} = require('discord.js');
+const log = require("../../otherFunctions/log");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,8 +11,10 @@ module.exports = {
                 .setRequired(true)
         )
         .setDefaultMemberPermissions(PermissionsBitField.Flags.MentionEveryone),
-        async execute(interaction) {
+        async execute(interaction, client) {
             try {
+                await log.execute(interaction, client);
+                
                 const appliedRole = interaction.options.getString('position');
         
                 const roleReply = await interaction.reply(`<@${interaction.user.id}>, you have requested verification for the role: **${appliedRole}**. Please provide proof of your accepted application by sending an image.`);
