@@ -2,9 +2,16 @@ module.exports = {
     name: 'ready',
     once: true,
     async execute(client) {
-        console.log('Ready!');
-
+        console.log('Ready at ' + new Date());
+        
         async function pickPresence () {
+            const statusArray = [
+                {
+                    status: 'online',
+                    content: 'your debates',
+                    type: 2
+                }
+            ]
             const option = Math.floor(Math.random() * statusArray.length);
 
             try {
@@ -13,7 +20,7 @@ module.exports = {
                         {
                             name: statusArray[option].content,
                             type: statusArray[option].type,
-
+                            
                         },
                     
                     ],
@@ -24,5 +31,7 @@ module.exports = {
                 console.error(error);
             }
         }
+        await pickPresence();
+        setInterval(pickPresence, 1000 * 60 * 30);
     },
 };
