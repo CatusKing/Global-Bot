@@ -1,8 +1,6 @@
 const {SlashCommandBuilder, PermissionsBitField} = require('discord.js');
 const log = require('../../otherFunctions/log');
 const { JsonDB, Config } = require('node-json-db');
-const db = new JsonDB(new Config("db", true, true, './'));
-
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -15,6 +13,7 @@ module.exports = {
   
   
   async execute(interaction, client) {
+    const db = new JsonDB(new Config("db", true, true, './'));
     let data = await db.getData('/data');
     let option = interaction.options.getString('options');
     
@@ -23,7 +22,8 @@ module.exports = {
         if (data.config === undefined) data.config = {
           logChannel: ''
         };
-        data.config.logChannel = interaction.channel.id;
+        data.config.logChannel = interaction.channel.id.toString();
+        
         await db.push('/data', data, true);
         await interaction.reply('New log channel has been set.');
         await log.execute(interaction, client);

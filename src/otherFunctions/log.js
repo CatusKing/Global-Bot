@@ -1,10 +1,9 @@
 const { JsonDB, Config } = require('node-json-db');
-const db = new JsonDB(new Config("db", true, true, './'));
-
 
 module.exports = {
   async execute(interaction, client) {
     try {
+      const db = new JsonDB(new Config("db", true, true, './'));
       let data = await db.getData('/data');
       if (data.logs === undefined) data.logs = [];
       let target = interaction.options.getUser('target');
@@ -25,7 +24,7 @@ module.exports = {
       data.logs.push(logData);
       await db.push("/data", data);
       
-      if (data.config === undefined || data.config.logChannel === undefined) return;
+      if (data.config === undefined || data.config.logChannel === undefined) return false;
       let content = `## Log #${data.logs.length}\n**Command**: ${interaction.commandName}\n**User**: ${interaction.user} | ${interaction.user.id}\n**Channel**: ${interaction.channel}`
       if (interaction.options.getUser('target') !== null) content += `\n**Target**: ${interaction.options.getUser('target')} | ${target}`;
       if (interaction.options.getString('reason') !== null) content += `\n**Reason**: ${interaction.options.getString('reason')}`;
@@ -34,8 +33,10 @@ module.exports = {
       
       let channel = await client.channels.fetch(data.config.logChannel);
       await channel.send({content: content});
+      return true;
     } catch (error) {
       console.error(error);
+      return false
     }
   },
 };
