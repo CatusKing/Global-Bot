@@ -40,9 +40,9 @@ module.exports = {
                         color: 0x0099ff,
                         title: 'Verification Request',
                         fields: [
-                            { name: '__Role Applied For:__', value: appliedRole },
-                            { name: '__User Requesting Verification:__', value: `${interaction.user}\n${interaction.user.tag}\n${interaction.user.id}` },
-                            { name: '__Proof Of Verification:__', value: ' '},
+                            { name: 'Role Applied For:', value: appliedRole },
+                            { name: 'User Requesting Verification:', value: `${interaction.user}\n${interaction.user.tag}\n${interaction.user.id}` },
+                            { name: 'Proof Of Verification:', value: ' '}
                         ],
                         timestamp: new Date(),
                         image: { url: proofAttachment.url }
