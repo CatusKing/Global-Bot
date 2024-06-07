@@ -30,6 +30,7 @@ module.exports = {
       if (interaction.options.getString('reason') !== null) content += `\n**Reason**: ${interaction.options.getString('reason')}`;
       if (interaction.options.getString('options') !== null) content += `\n**Option**: ${interaction.options.getString('options')}`;
       if (interaction.options.getString('duration') !== null) content += `\n**Duration**: ${interaction.options.getString('duration') / 60} minute(s)`;
+      content += '\n**---------------**'
       
       let channel = await client.channels.fetch(data.config.logChannel);
       await channel.send({content: content});
