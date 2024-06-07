@@ -12,17 +12,19 @@ module.exports = {
 
     async execute(interaction, client) {
         const user = interaction.options.getUser('target');
+        
         const isMember = await interaction.guild.members.fetch(user.id).then(() => true).catch(() => false);
-        if (!isMember) return interaction.reply({ content: 'The user is not a member of the server', ephemeral: true});
-        const member = await interaction.guild.members.fetch(user.id);
-        
-        
-        if (!member.moderatable) return await interaction.reply({ content: 'I can not ban this member', ephemeral: true});
-        
-        let reason =  interaction.options.getString('reason') || 'No reason provided';
         try {
-            await member.ban({reason: reason});
-            
+            let reason =  interaction.options.getString('reason') || 'No reason provided';
+            if (!isMember) {
+                await interaction.guild.bans.create(user.id, {reason: reason});
+            } else {
+                const member = await interaction.guild.members.fetch(user.id);
+                
+                if (!member.moderatable) return await interaction.reply({ content: 'I can not ban this member', ephemeral: true});
+                
+                await member.ban({reason: reason});
+            }
             await interaction.reply({content: `:eyes: oh boy`, ephemeral: true});
             await interaction.followUp({content: `${user} has been **Banned** by ${interaction.user}`});
             await log.execute(interaction, client);
