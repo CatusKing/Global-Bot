@@ -43,19 +43,16 @@ module.exports = {
                             { name: 'User Requesting Verification:', value: `${interaction.user}\n${interaction.user.tag}\n${interaction.user.id}` },
                             { name: 'Proof Of Verification:', value: ' '}
                         ],
-                        timestamp: new Date(),
-                        image: { url: proofAttachment.url }
                     };
         
-                    await interaction.followUp({ content: `<@${interaction.user.id}>, your verification pending approval. Here is the information you provided:`, embeds: [embed] });
-                    await messages.delete();
+                    await roleReply.edit({ content: `<@${interaction.user.id}>, your verification pending approval. Here is the information you provided:`, embeds: [embed] });
                 });
         
                 proofCollector.on('end', async (collected, reason) => {
                     if (reason === 'time') {
                         await interaction.followUp(`<@${interaction.user.id}>, your verification process timed out. Please try again.`);
+                        await roleReply.delete();
                     }
-                    await roleReply.delete();
                 });
             } catch (error) {
                 console.error('Error handling interaction:', error);
