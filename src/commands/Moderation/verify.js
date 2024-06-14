@@ -34,7 +34,6 @@ module.exports = {
         
                 proofCollector.on('collect', async messages => {
                     const proofAttachment = messages.attachments.first();
-                    await messages.delete();
         
                     const embed = {
                         color: 0x0099ff,
@@ -49,6 +48,7 @@ module.exports = {
                     };
         
                     await interaction.followUp({ content: `<@${interaction.user.id}>, your verification pending approval. Here is the information you provided:`, embeds: [embed] });
+                    await messages.delete();
                 });
         
                 proofCollector.on('end', async (collected, reason) => {
