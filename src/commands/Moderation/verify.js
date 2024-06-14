@@ -33,7 +33,6 @@ module.exports = {
                 });
         
                 proofCollector.on('collect', async messages => {
-                    const proofAttachment = messages.attachments.first();
         
                     const embed = {
                         color: 0x0099ff,
