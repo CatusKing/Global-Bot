@@ -10,14 +10,14 @@ module.exports = {
   
   
   async execute(interaction, client) {
+    await interaction.reply({content: `Message pending`, ephemeral: true});
     const message = await interaction.options.getString('content').replaceAll('\\n', '\n');
     try {
       await interaction.channel.send({content: message});
-      await interaction.reply({content: `Message sent!`, ephemeral: true});
       await log.execute(interaction, client);
     } catch (error) {
       console.error('Error handling interaction:', error);
-      await interaction.reply({content: 'An error occurred while processing your request.\nPlease contact a developer if this persists.'});
+      await interaction.followUp({content: 'An error occurred while processing your request.\nPlease contact a developer if this persists.'});
     }
   }
 }

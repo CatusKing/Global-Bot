@@ -28,7 +28,7 @@ module.exports = {
       let content = `## Log #${data.logs.length}\n**Command**: ${interaction.commandName}\n**User**: ${interaction.user} | ${interaction.user.id}\n**Channel**: ${interaction.channel}`
       if (interaction.options.getUser('target') !== null) content += `\n**Target**: ${interaction.options.getUser('target')} | ${target}`;
       if (interaction.options.getString('reason') !== null) content += `\n**Reason**: ${interaction.options.getString('reason')}`;
-      if (interaction.options.getString('options') !== null) content += `\n**Option**: ${interaction.options.getString('options')}`;
+      if (interaction.options.data[0].type === 1) content += `\n**Sub Command**: ${interaction.options.data[0].name}`;
       if (interaction.options.getString('duration') !== null) content += `\n**Duration**: ${interaction.options.getString('duration') / 60} minute(s)`;
       content += '\n**---------------**'
       
