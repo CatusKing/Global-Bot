@@ -17,13 +17,13 @@ module.exports = {
         
         try {
             let reason =  interaction.options.getString('reason') || 'No reason provided';
-            if (await interaction.guild.bans.cache.get(user.id)) {
+            if (await interaction.guild.bans.cache.get(user.id) !== undefined) {
                 await interaction.guild.bans.remove(user.id, reason);
+                await interaction.reply({content: `:eyes: oh ok`, ephemeral: true});
+                await interaction.followUp({content: `${user} has been **Unbanned** by ${interaction.user}`});
             } else {
                 interaction.reply({ content: 'I could not find that member in the ban list.', ephemeral: true})
             }
-            await interaction.reply({content: `:eyes: oh ok`, ephemeral: true});
-            await interaction.followUp({content: `${user} has been **Unbanned** by ${interaction.user}`});
             await log.execute(interaction, client);
         } catch (error) {
             console.error('Error handling interaction:', error);
