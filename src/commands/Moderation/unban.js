@@ -17,7 +17,7 @@ module.exports = {
         
         try {
             let reason =  interaction.options.getString('reason') || 'No reason provided';
-            if (await interaction.guild.bans.fetch(user.id)) {
+            if (await interaction.guild.bans.cache.get(user.id)) {
                 await interaction.guild.bans.remove(user.id, reason);
             } else {
                 interaction.reply({ content: 'I could not find that member in the ban list.', ephemeral: true})
