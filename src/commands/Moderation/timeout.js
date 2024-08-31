@@ -28,10 +28,12 @@ module.exports = {
                     { name: '1 Week', value: '604800' },
                 ))
         .addStringOption(option => option.setName('reason').setDescription('Reason for timing out the member.').setRequired(true))
+        .addBooleanOption(option => option.setName('hide').setDescription('Hide who sent the command.').setRequired(false))
         .setDefaultMemberPermissions(PermissionsBitField.Flags.ModerateMembers),
 
     async execute(interaction, client) {
         const user = interaction.options.getUser('target');
+        const hide = interaction.options.getBoolean('hide');
         const isMember = await interaction.guild.members.fetch(user.id).then(() => true).catch(() => false);
         if (!isMember) return interaction.reply({ content: 'The user is not a member of the server', ephemeral: true});
         const member = await interaction.guild.members.fetch(user.id);
@@ -45,7 +47,9 @@ module.exports = {
             await member.timeout(duration * 1000, reason);
             
             await interaction.reply({content: `:eyes: oh boy`, ephemeral: true});
-            await interaction.followUp({content: `${user} has been **Timed Out** for **${duration / 60} minute(s)** by ${interaction.user}`});
+            let content = `${user} has been **Timed Out** for **${duration / 60} minute(s)**`
+            if (!hide) content += ` by ${interaction.user}`
+            await interaction.followUp({content: content});
             await log.execute(interaction, client);
         } catch (error) {
             console.error('Error handling interaction:', error);

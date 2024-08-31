@@ -7,11 +7,13 @@ module.exports = {
     .setDescription('Bans a member from the server.')
     .addUserOption(option => option.setName('target').setDescription('The member you want to ban.').setRequired(true))
     .addStringOption(option => option.setName('reason').setDescription('Reason for banning the selected member.').setRequired(true))
+    .addBooleanOption(option => option.setName('hide').setDescription('Hide who sent the command.').setRequired(false))
     .setDefaultMemberPermissions(PermissionsBitField.Flags.BanMembers),
 
 
     async execute(interaction, client) {
         const user = interaction.options.getUser('target');
+        const hide = interaction.options.getBoolean('hide');
         
         const isMember = await interaction.guild.members.fetch(user.id).then(() => true).catch(() => false);
         try {
@@ -26,7 +28,9 @@ module.exports = {
                 await member.ban({reason: reason});
             }
             await interaction.reply({content: `:eyes: oh boy`, ephemeral: true});
-            await interaction.followUp({content: `${user} has been **Banned** by ${interaction.user}`});
+            let content = `${user} has been **Banned**`
+            if (!hide) content += ` by ${interaction.user}`
+            await interaction.followUp({content: content});
             await log.execute(interaction, client);
         } catch (error) {
             console.error('Error handling interaction:', error);

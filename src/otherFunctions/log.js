@@ -25,11 +25,12 @@ module.exports = {
       await db.push("/data", data);
       
       if (data.config === undefined || data.config.logChannel === undefined) return false;
-      let content = `## Log #${data.logs.length}\n**Command**: ${interaction.commandName}\n**User**: ${interaction.user} | ${interaction.user.id}\n**Channel**: ${interaction.channel}`
+      let content = `## Log #${data.logs.length}\n**Command**: ${interaction.commandName}\n**User**: ${interaction.user} | ${interaction.user.id}\n**Channel**: ${interaction.channel} | ${interaction.channel.id}`
       if (interaction.options.getUser('target') !== null) content += `\n**Target**: ${interaction.options.getUser('target')} | ${target}`;
       if (interaction.options.getString('reason') !== null) content += `\n**Reason**: ${interaction.options.getString('reason')}`;
       if (interaction.options.data[0].type === 1) content += `\n**Sub Command**: ${interaction.options.data[0].name}`;
       if (interaction.options.getString('duration') !== null) content += `\n**Duration**: ${interaction.options.getString('duration') / 60} minute(s)`;
+      if (interaction.options.getBoolean('hide') !== null) content += `\n**Hidden**: \`true\``
       content += '\n**---------------**'
       
       let channel = await client.channels.fetch(data.config.logChannel);
