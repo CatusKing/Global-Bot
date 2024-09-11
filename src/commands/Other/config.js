@@ -66,7 +66,7 @@ module.exports = {
         data.config.quotesChannel = interaction.channel.id.toString();
         
         await db.push('/data', data, true);
-        await interaction.reply('New log channel has been set.');
+        await interaction.reply('New quotes channel has been set.');
         await log.execute(interaction, client);
       } catch (error) {
         console.error('Error handling interaction:', error);
