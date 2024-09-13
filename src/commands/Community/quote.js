@@ -6,8 +6,8 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName('quote')
     .setDescription('Quote a message another user sent!')
-    .addStringOption(option => option.setName('quote').setDescription('The quotes the author sent.').setRequired(true))
-    .addStringOption(option => option.setName('author').setDescription('The author of the quote.').setRequired(true)),
+    .addStringOption(option => option.setName('author').setDescription('The author of the quote.').setRequired(true))
+    .addStringOption(option => option.setName('quote').setDescription('The quotes the author sent.').setRequired(true)),
   
   async execute(interaction, client) {
     const db = new JsonDB(new Config("db", true, true, './'));

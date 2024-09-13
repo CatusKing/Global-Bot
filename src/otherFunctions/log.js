@@ -5,6 +5,8 @@ module.exports = {
     try {
       const db = new JsonDB(new Config("db", true, true, './'));
       let data = await db.getData('/data');
+      let quoteChannel = false;
+      if (data.config !== undefined && data.config.quotesChannel !== undefined) quoteChannel = data.config.quotesChannel
       if (data.logs === undefined) data.logs = [];
       let target = interaction.options.getUser('target');
       if (target !== null) target = target.id;
@@ -30,8 +32,9 @@ module.exports = {
       if (interaction.options.getString('reason') !== null) content += `\n**Reason**: ${interaction.options.getString('reason')}`;
       if (interaction.options.data[0].type === 1) content += `\n**Sub Command**: ${interaction.options.data[0].name}`;
       if (interaction.options.getString('duration') !== null) content += `\n**Duration**: ${interaction.options.getString('duration') / 60} minute(s)`;
-      if (interaction.options.getBoolean('hide') !== null) content += `\n**Hidden**: \`true\``
-      content += '\n**---------------**'
+      if (interaction.options.getBoolean('hide') !== null) content += `\n**Hidden**: \`true\``;
+      if (quoteChannel) content += `\n**Quotes Channel**: <#${quoteChannel}> | ${quoteChannel}`;
+      content += '\n**---------------**';
       
       let channel = await client.channels.fetch(data.config.logChannel);
       await channel.send({content: content});
