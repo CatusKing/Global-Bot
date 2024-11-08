@@ -1,6 +1,5 @@
 const {SlashCommandBuilder, PermissionsBitField, SlashCommandSubcommandBuilder} = require('discord.js');
 const log = require('../../otherFunctions/log');
-const emoji = require('../../otherFunctions/emoji');
 const { JsonDB, Config } = require('node-json-db');
 
 module.exports = {
@@ -12,14 +11,13 @@ module.exports = {
       .setDescription('Sets a log channel')
     )
     .addSubcommand(new SlashCommandSubcommandBuilder()
-      .setName('set_emoji')
-      .setDescription('Set the emoji for a command')
-      .addStringOption(option => option.setName('command_name').setDescription('The name of the command or feature.').setRequired(true))
-      .addStringOption(option => option.setName('emoji').setDescription('The ID of the emoji.').setRequired(true))
-    )
-    .addSubcommand(new SlashCommandSubcommandBuilder()
       .setName('set_quotes_channel')
       .setDescription('Set the quotes channel')
+    )
+    .addSubcommand(new SlashCommandSubcommandBuilder()
+      .setName('set_video_channel')
+      .setDescription('Set the video only channel')
+      .addChannelOption(option => option.setName('channel').setDescription('The channel id of the video only channel.').setRequired(true))
     )
     .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
   
@@ -43,21 +41,6 @@ module.exports = {
         console.error('Error handling interaction:', error);
         await interaction.channel.send({content: 'An error occurred while processing your request.\nPlease contact a developer if this persists.'});
       }
-    } else if (option === 'set_emoji') {
-      try {
-        let commandName = interaction.options.getString('command_name');
-        let emojiData = interaction.options.getString('emoji');
-        const regex = /^<:[a-zA-Z0-9_]+:\d+>$/;
-        if (!regex.test(emojiData)) return interaction.reply({content: 'Invalid emoji', ephemeral: true});
-        emojiData = emojiData.split(':');
-        emojiData[2] = emojiData[2].replace('>', '');
-        await emoji.set(commandName, emojiData[1], emojiData[2]);
-        await interaction.reply(`${commandName}'s emoji has been set to <:${emojiData[1]}:${emojiData[2]}>`);
-        await log.execute(interaction, client);
-      } catch (error) {
-        console.error('Error handling interaction:', error);
-        await interaction.channel.send({content: 'An error occurred while processing your request.\nPlease contact a developer if this persists.'});
-      }
     } else if (option === 'set_quotes_channel') {
       try {
         if (data.config === undefined) data.config = {
@@ -67,6 +50,20 @@ module.exports = {
         
         await db.push('/data', data, true);
         await interaction.reply('New quotes channel has been set.');
+        await log.execute(interaction, client);
+      } catch (error) {
+        console.error('Error handling interaction:', error);
+        await interaction.channel.send({content: 'An error occurred while processing your request.\nPlease contact a developer if this persists.'});
+      }
+    } else if (option === 'set_video_channel') {
+      try {
+        if (data.config === undefined) data.config = {
+          videoOnly: ''
+        };
+        data.config.videoOnly = interaction.options.getChannel('channel').id;
+        
+        await db.push('/data', data, true);
+        await interaction.reply('New video only channel has been set.');
         await log.execute(interaction, client);
       } catch (error) {
         console.error('Error handling interaction:', error);
