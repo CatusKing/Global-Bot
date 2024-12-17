@@ -10,7 +10,7 @@ module.exports = {
       let data = await db.getData('/data');
       
       // Make sure the required config is available
-      if (!data.config || !data.config.videoOnly || newState.channel.id !== channel.id) return;
+      if (!data.config || !data.config.videoOnly || newState.channel.id !== data.config.videoOnly) return;
       
       const channel = await client.channels.fetch(data.config.videoOnly);
       if (!channel.isVoiceBased()) return;
