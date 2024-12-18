@@ -12,14 +12,17 @@ module.exports = {
       // Make sure the required config is available
       if (!data.config || !data.config.videoOnly || newState.channel.id !== data.config.videoOnly) return;
       
+      // Fetch the channel and check if it's voice-based
       const channel = await client.channels.fetch(data.config.videoOnly);
       if (!channel.isVoiceBased()) return;
       
       // Get the AFK channel for the guild
       const guildAFKChannel = channel.guild.afkChannel || null;
       
+      // If the user has video enabled, do nothing
       if (newState.channel.id !== channel.id) return;
       
+      // If the user doesn't have video enabled, move them to the AFK channel
       setTimeout(async () => {
       
         if (newState.member.voice.selfVideo) return;
