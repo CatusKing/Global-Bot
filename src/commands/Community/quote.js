@@ -26,7 +26,7 @@ module.exports = {
     await interaction.reply({content: `Message pending`, ephemeral: true});
     
     // Set up the quote
-    const message = `## Quote\n${await interaction.options.getString('quote').replaceAll('\\n', '\n')}\n### Author\n${author}\n**---------------**`;
+    const message = `**---------------**\n## Quote\n${await interaction.options.getString('quote').replaceAll('\\n', '\n')}\n### Author\n${author}`;
     
     // Send the quote
     try {
