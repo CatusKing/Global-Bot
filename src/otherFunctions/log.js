@@ -41,7 +41,7 @@ module.exports = {
       if (interaction.options.data[0].type === 1) content += `\n**Sub Command**: ${interaction.options.data[0].name}`;
       if (interaction.options.getString('duration') !== null) content += `\n**Duration**: ${interaction.options.getString('duration') / 60} minute(s)`;
       if (interaction.options.getBoolean('hide') !== null) content += `\n**Hidden**: \`true\``;
-      if (quoteChannel) content += `\n**Quotes Channel**: <#${quoteChannel}> | ${quoteChannel}`;
+      if (interaction.options.getString('quote') !== null && quoteChannel) content += `\n**Quotes Channel**: <#${quoteChannel}> | ${quoteChannel}`;
       content += '\n**---------------**';
       
       // Send the log to the log channel

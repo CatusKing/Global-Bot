@@ -18,7 +18,7 @@ module.exports = {
     // Check if the command is enabled
     if (data.config === undefined || data.config.quotesChannel === undefined) return interaction.reply({content: 'Could not find a configured quotes channel.', ephemeral: true})
     
-    // Setup the channel and author
+    // Set up the channel and author
     let channel = await interaction.client.channels.fetch(data.config.quotesChannel);
     let author = await interaction.options.getString('author');
     
@@ -26,7 +26,7 @@ module.exports = {
     await interaction.reply({content: `Message pending`, ephemeral: true});
     
     // Set up the quote
-    const message = `**---------------**\n## Quote\n${await interaction.options.getString('quote').replaceAll('\\n', '\n')}\n### Author\n${author}`;
+    const message = `**---------------**\n### Author\n${author}\n## Quote\n${(interaction.options.getString('quote').replaceAll('\\n', '\n'))}`;
     
     // Send the quote
     try {
