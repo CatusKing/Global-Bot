@@ -5,7 +5,7 @@
     "node-json-db": "^2.3.0"
   },
   "name": "ideologies-network",
-  "description": "CatusCunt",
+  "description": "CatusKing",
   "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
@@ -13,12 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CatusKing/Ideologies-Network.git"
+    "url": "git+https://github.com/CatusKing/Global-Bot.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/CatusKing/Ideologies-Network/issues"
+    "url": "https://github.com/CatusKing/Global-Bot/issues"
   },
-  "homepage": "https://github.com/CatusKing/Ideologies-Network#readme"
+  "homepage": "https://github.com/CatusKing/Global-Bot#readme"
 }
