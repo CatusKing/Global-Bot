@@ -75,6 +75,10 @@ Quotes a member of the server
 
 ## Other
 
+### /ping
+
+Prints out Pong with response time in ms. For testing.
+
 ### /print
 
 Prints out inputted message. Usually used for testing purposes.

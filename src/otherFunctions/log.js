@@ -33,12 +33,12 @@ module.exports = {
       
       // Check if the log channel is set
       if (data.config === undefined || data.config.logChannel === undefined) return false;
-      
+       
       // Add any information to the log
       let content = `## Log #${data.logs.length}\n**Command**: ${interaction.commandName}\n**User**: ${interaction.user} | ${interaction.user.id}\n**Channel**: ${interaction.channel} | ${interaction.channel.id}`
       if (interaction.options.getUser('target') !== null) content += `\n**Target**: ${interaction.options.getUser('target')} | ${target}`;
       if (interaction.options.getString('reason') !== null) content += `\n**Reason**: ${interaction.options.getString('reason')}`;
-      if (interaction.options.data[0].type === 1) content += `\n**Sub Command**: ${interaction.options.data[0].name}`;
+      if (interaction.options.data[0] !== undefined && interaction.options.data[0].type === 1) content += `\n**Sub Command**: ${interaction.options.data[0].name}`;
       if (interaction.options.getString('duration') !== null) content += `\n**Duration**: ${interaction.options.getString('duration') / 60} minute(s)`;
       if (interaction.options.getBoolean('hide') !== null) content += `\n**Hidden**: \`true\``;
       if (interaction.options.getString('quote') !== null && quoteChannel) content += `\n**Quotes Channel**: <#${quoteChannel}> | ${quoteChannel}`;
