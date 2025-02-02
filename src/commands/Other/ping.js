@@ -4,9 +4,7 @@ const log = require('../../otherFunctions/log');
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('ping')
-    .setDescription('To test the bots functionality.')
-    .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
-  
+    .setDescription('To test the bots functionality.'),  
   
   async execute(interaction, client) {
     const sent = await interaction.reply({ content: 'Pinging...', fetchReply: true });
