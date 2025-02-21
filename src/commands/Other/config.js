@@ -19,6 +19,11 @@ module.exports = {
       .setDescription('Set the video only channel')
       .addChannelOption(option => option.setName('channel').setDescription('The channel id of the video only channel.').setRequired(true))
     )
+    .addSubcommand(new SlashCommandSubcommandBuilder()
+        .setName('set_help')
+        .setDescription('Set the content for the help command')
+        .addStringOption(option => option.setName('content').setDescription('Use \\n to go down a line').setRequired(true))
+    )
     .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
   
   
@@ -64,6 +69,20 @@ module.exports = {
         
         await db.push('/data', data, true);
         await interaction.reply('New video only channel has been set.');
+        await log.execute(interaction, client);
+      } catch (error) {
+        console.error('Error handling interaction:', error);
+        await interaction.channel.send({content: 'An error occurred while processing your request.\nPlease contact a developer if this persists.'});
+      }
+    } else if (option === 'set_help') {
+      try {
+        if (data.config === undefined) data.config = {
+          help: ''
+        };
+        data.config.help = interaction.options.getString('content').replaceAll('\\n', '\n');
+
+        await db.push('/data', data, true);
+        await interaction.reply('New help content has been set.');
         await log.execute(interaction, client);
       } catch (error) {
         console.error('Error handling interaction:', error);

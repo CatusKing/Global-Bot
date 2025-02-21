@@ -43,26 +43,12 @@ Removes the ban from a member.
 - reason - Reason for removing the ban from the selected member.
 - hide - Option to hide who sent the command.
 
-### /verify
-
-Send a request to verify a staff position.
-
-position - The position you applied for.
-
 ### /suspicious_user
 
 Logs a user as a suspicious server member.
 
 - target - The target user you would like to log as suspicious. This can be just a user id.
 - reason - The reason for logging the user as suspicious.
-
-### /blacklist
-
-Logs a user as blacklisted from staff.
-
-- target - The target user you would like to log as blacklisted. This Can be just a user id.
-- position - The highest position the target user held.
-- reason - The reason for logging the user as blacklisted.
 
 ## Community
 
@@ -72,6 +58,42 @@ Quotes a member of the server
 
 * author - The author of the quote.
 * quote - The actual quote to be posted.
+
+### /help
+
+Sends a configured help message
+
+## Staff
+
+### /blacklist
+
+Logs a user as blacklisted from staff.
+
+- target - The target user you would like to log as blacklisted. This Can be just a user id.
+- position - The highest position the target user held.
+- reason - The reason for logging the user as blacklisted.
+
+### /verify
+
+Send a request to verify a staff position.
+
+- position - The position you applied for.
+
+### /inactive
+
+Formats your inactivity notice.
+
+- length - Length for the inactivity period.
+- return - Date of return for the inactivity period.
+- position - The current position you hold
+- notes - Notes for the inactivity notice.
+
+### /resign
+
+Formats your resignation notice.
+
+- position - The current position you hold.
+- reason - Reason for the resignation notice.
 
 ## Other
 

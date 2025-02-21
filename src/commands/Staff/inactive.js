@@ -5,10 +5,11 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('inactive')
         .setDescription('Formats your inactivity notice.')
-        .addStringOption(option => option.setName('length').setDescription('Length for the inactivity.').setRequired(true))
-        .addStringOption(option => option.setName('return').setDescription('Date of return for the inactivity.').setRequired(true))
-        .addRoleOption(option => option.setName('position').setDescription('The current position you hold').setRequired(true))
-        .addStringOption(option => option.setName('notes').setDescription('Notes for the inactivity notice.').setRequired(true)),
+        .addStringOption(option => option.setName('length').setDescription('Length for the inactivity period.').setRequired(true))
+        .addStringOption(option => option.setName('return').setDescription('Date of return for the inactivity period.').setRequired(true))
+        .addRoleOption(option => option.setName('position').setDescription('The current position you hold.').setRequired(true))
+        .addStringOption(option => option.setName('notes').setDescription('Notes for the inactivity notice.').setRequired(true))
+        .setDefaultMemberPermissions(PermissionsBitField.Flags.MentionEveryone),
 
     async execute(interaction, client) {
         // Role object input

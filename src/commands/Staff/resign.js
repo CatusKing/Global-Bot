@@ -5,8 +5,9 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('resign')
         .setDescription('Formats your resignation notice.')
-        .addRoleOption(option => option.setName('position').setDescription('The current position you hold').setRequired(true))
-        .addStringOption(option => option.setName('reason').setDescription('Reason for the resignation notice.').setRequired(true)),
+        .addRoleOption(option => option.setName('position').setDescription('The current position you hold.').setRequired(true))
+        .addStringOption(option => option.setName('reason').setDescription('Reason for the resignation notice.').setRequired(true))
+        .setDefaultMemberPermissions(PermissionsBitField.Flags.MentionEveryone),
 
     async execute(interaction, client) {
         // Role object input
