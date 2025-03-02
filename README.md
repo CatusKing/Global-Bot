@@ -63,6 +63,12 @@ Quotes a member of the server
 
 Sends a configured help message
 
+### /vent
+
+Send a completely anonymous vent.
+
+- vent - The to vent be submitted.
+
 ## Staff
 
 ### /blacklist
@@ -112,3 +118,5 @@ Prints out inputted message. Usually used for testing purposes.
 Configures a global setting.
 
 - options - The different configs you can change.
+
+v1.0.0

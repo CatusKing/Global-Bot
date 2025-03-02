@@ -24,6 +24,10 @@ module.exports = {
         .setDescription('Set the content for the help command')
         .addStringOption(option => option.setName('content').setDescription('Use \\n to go down a line').setRequired(true))
     )
+    .addSubcommand(new SlashCommandSubcommandBuilder()
+        .setName('set_vent_channel')
+        .setDescription('Set the vent channel')
+    )
     .setDefaultMemberPermissions(PermissionsBitField.Flags.Administrator),
   
   
@@ -83,6 +87,20 @@ module.exports = {
 
         await db.push('/data', data, true);
         await interaction.reply('New help content has been set.');
+        await log.execute(interaction, client);
+      } catch (error) {
+        console.error('Error handling interaction:', error);
+        await interaction.channel.send({content: 'An error occurred while processing your request.\nPlease contact a developer if this persists.'});
+      }
+    } else if (option === 'set_vent_channel') {
+      try {
+        if (data.config === undefined) data.config = {
+          ventChannel: ''
+        };
+        data.config.ventChannel = interaction.channel.id.toString();
+
+        await db.push('/data', data, true);
+        await interaction.reply('New vent channel has been set.');
         await log.execute(interaction, client);
       } catch (error) {
         console.error('Error handling interaction:', error);
