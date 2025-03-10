@@ -23,8 +23,8 @@ module.exports = {
       await db.push("/data", data);
        
       // Add any information to the log
-      let content = `## Log #${data.logs}\n**Command**: ${interaction.commandName}\n**User**: ${interaction.user} | ${interaction.user.id}\n**Channel**: ${interaction.channel} | ${interaction.channel.id}`
-      if (interaction.options.getUser('target') !== null) content += `\n**Target**: ${interaction.options.getUser('target')} | ${target}`;
+      let content = `## Log #${data.logs}\n**Command**: ${interaction.commandName}\n**User**: ${interaction.user.tag} | ${interaction.user.id}\n**Channel**: ${interaction.channel} | ${interaction.channel.id}`
+      if (interaction.options.getUser('target') !== null) content += `\n**Target**: ${interaction.options.getUser('target').tag} | ${target}`;
       if (interaction.options.getString('reason') !== null) content += `\n**Reason**: ${interaction.options.getString('reason')}`;
       if (interaction.options.data[0] !== undefined && interaction.options.data[0].type === 1) content += `\n**Sub Command**: ${interaction.options.data[0].name}`;
       if (interaction.options.getString('duration') !== null) content += `\n**Duration**: ${interaction.options.getString('duration') / 60} minute(s)`;
